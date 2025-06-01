@@ -16,13 +16,13 @@ int main () {
     scanf ("%f, &altura");
 
     printf ("Município de nascimento: \n");
-    scanf ("%s, &município");
+    scanf ("%s, &municipio");
 
     printf ("Qual sua matricula: \n");
     scanf ("%d, &matricula");
     
-    printf ("Nome completo: %s. Idade: %d\n, Altura: %f.2 nome, idade, altura\n");
-    printf ("Município de nascimento: %s. Matricula: %d, município, matricula");
-    
+    printf ("Nome completo: %s . Idade: %d . Altura: %f \n", nome, idade, altura);
+    printf ("Município de nascimento: %s . Matricula: %d \n", municipio, matricula);
+
     return 0;
 }

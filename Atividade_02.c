@@ -1,5 +1,16 @@
 #include <stdio.h>
 
+<<<<<<< HEAD
+int main(){
+    int idade, matricula;
+    float altura;
+    char nome [50];
+
+    printf ("Nome completo: .\n")
+    scanf ("%s, &nome\n")
+}
+
+=======
 int main () {
     int idade, matricula;
     float altura;
@@ -26,3 +37,5 @@ int main () {
 
     return 0;
 }
+
+>>>>>>> 58fca7f8e700598876fd716644024e35308a27e6

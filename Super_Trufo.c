@@ -105,20 +105,20 @@ int main() {
     printf("PIB per Capita é de R$:%.2f reais.\n", nome_cidade2, PIB2);
     printf("Super poder: Carta 02 %.2f de poder.", poder2);
 
-       //comparação de qual carta vence
-    printf("\n--- Super Trunfo - Países ---\n");
-    printf("\n--- Países resultados ---\n");
-    printf("\n");
-    printf("\n");
-    printf("População venceu: %2.f\n", (populacao > populacao2));
-    printf("PIB venceu: %2.f\n", (pib > pib2));
-    printf("Pontos turísticos venceu: %2.f\n", (turistico > turistico2));
-    printf("Densidade populacional venceu: %2.f\n", (densidade > densidade2));
-    printf("PIB per carpita venceu: %2.f\n", (PIB > PIB2));
-    printf("Super poder venceu: %2.f\n", (poder > poder2));
+    //comparação de qual carta vence sem if ou else
+    //printf("\n--- Super Trunfo - Países ---\n");
+    //printf("\n--- Países resultados ---\n");
+    //printf("\n");
+    //printf("\n");
+    //printf("População venceu: %2.f\n", (populacao > populacao2));
+    //printf("PIB venceu: %2.f\n", (pib > pib2));
+    //printf("Pontos turísticos venceu: %2.f\n", (turistico > turistico2));
+    //printf("Densidade populacional venceu: %2.f\n", (densidade > densidade2));
+    //printf("PIB per carpita venceu: %2.f\n", (PIB > PIB2));
+    //printf("Super poder venceu: %2.f\n", (poder > poder2));
 
     //Comparação entre os atributos com IF e ELSE
-    printf("----- Comparações entre as cartas -----\n")
+    printf("----- Comparações entre as cartas -----\n");
     printf("Carta 01 - População: %2.f\n", populacao);
     printf("Carta 02 - População: %2.f\n", populacao2);
         if (populacao > populacao2)

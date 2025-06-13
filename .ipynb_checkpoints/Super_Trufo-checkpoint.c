@@ -106,11 +106,10 @@ int main() {
     poder2 = (float)populacao2 + area2 + pib2 + (float)turistico2 + PIB2 - densidade2; // Carta 02
 
     //Menu inicial 02
-    printf("\n---_ Super Trunfo - Países _---\n");
+    printf("\n--- Super Trunfo - Países ---\n");
     printf("\n--- Comparações dos atributos ---\n");
     printf("\n");
-    printf("Carta 01 x Carta 02\n");
-    printf("\n");
+    printf("Carta 01\n");
     printf("\n");
     printf("Opção 1 - População.\n");
     printf("Opção 2 - Área.\n");
@@ -124,88 +123,7 @@ int main() {
 
     switch (atb1)
     {
-    case 1: //Comparação da população
-        printf("População total das cidades das Carta 01 x Carta 02\n");
-        if (populacao>populacao2) {
-            printf("População da Carta 01 VENCEU !!!\n");
-        } else if (populacao2>populacao){
-            printf("População da Carta 02 VENCEU !!!\n");
-        } else {
-            printf("População das Cartas 01 e Carta 02 são iguais\n");
-            printf("EMPATE >.<' ");
-        }
-    break;
-    case 2: //Comparação da area
-        printf("Area total das cidades das Carta 01 x Carta 02\n");
-        if (area>area2){
-            printf("Area total da Carta 01 VENCEU !!!\n");
-        } else if (area2>area){
-            printf("Area total da Carta 02 VENCEU !!!\n");
-        } else {
-            printf("Area total das Cartas 01 e Carta 02 são iguais\n");
-            printf("EMPATE >.< ");
-        }
-    break;
-    case 3: //Comparação do PIB
-        printf("PIB das cidades das Carta 01 x Carta 02\n");
-        if (pib>pib2){
-            printf("PIB da Carta 01 VENCEU !!!\n");
-        } else if (pib2>pib){
-            printf("População da Carta 02 VENCEU !!!\n");
-        } else {
-            printf("PIB das Cartas 01 e Carta 02 são iguais\n");
-            printf("EMPATE >.< ");
-        }
-    break;
-    case 4: //Comparação do Pontos Turísticos
-        printf("Pontos Turísticos das cidades das Carta 01 x Carta 02\n");
-        if (turistico>turistico2){
-            printf("Ponto Turístico da Carta 01 VENCEU !!!\n");
-        } else if (turistico2>turistico){
-            printf("População da Carta 02 VENCEU !!!\n");
-        } else {
-            printf("Pontos Turísticos das Cartas 01 e Carta 02 são iguais\n");
-            printf("EMPATE >.< ");
-        }
-    break;
-    case 5: //Comparação da Densidade população comparação inversa
-        printf("Densidade Populacional das cidades das Carta 01 x Carta 02\n");
-        if (densidade<densidade2){
-            printf("Densidade populacional da Carta 01 VENCEU !!!\n");
-        } else if (densidade2<densidade){
-            printf("Densidade populacional da Carta 02 VENCEU !!!\n");
-        } else {
-            printf("Densidade populacional das Cartas 01 e Carta 02 são iguais\n");
-            printf("EMPATE >.< ");
-        }
-    break;
-    case 6: //Comparação da PIB per capita
-        printf("PIB per capita das cidades das Carta 01 x Carta 02\n");
-        if (PIB>PIB2){
-            printf("PIB per capita da Carta 01 VENCEU !!!\n");
-        } else if (PIB2>PIB2){
-            printf("PIB per capita da Carta 02 VENCEU !!!\n");
-        } else {
-            printf("PIB per capita das Cartas 01 e Carta 02 são iguais\n");
-            printf("EMPATE >.< ");
-        }
-    break;
-    case 7: //Comparação do poder
-        printf("Poder das cidades das Carta 01 x Carta 02\n");
-        if (poder>poder2){
-            printf("Poder da Carta 01 VENCEU !!!\n");
-        } else if (poder2>poder){
-            printf("Poder da Carta 02 VENCEU !!!\n");
-        } else {
-            printf("Poder das Cartas 01 e Carta 02 são iguais\n");
-            printf("EMPATE >.< ");
-        }
-    break;
-    default:
-    printf("Opção inválida\n");
-    break;
-    }
-    /*case 1:
+    case 1:
         printf("Carta 02\n");
         printf("\n");
         printf("Opção 2 - Área.\n");
@@ -245,7 +163,7 @@ int main() {
         printf("OPÇÃO INVÁLIDA\n");
         break;
    
-        /* code
+        /* code */
     }
     
     if (atb1=1)
@@ -257,7 +175,7 @@ int main() {
     }
 
     //Switch 02 Comparações dos valores das cartas
-switch (opcao)
+/*switch (opcao)
 {
     case 1:
         //Impressão dos dados da carta 01

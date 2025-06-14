@@ -18,6 +18,7 @@ int main(){
 
     //flag pra indicar se é pra continuar rodando mostrando o menu ou n
     int rodando = 1; //1 significa ativo 0 inativo
+
     //flags para mostrar itens do submenu
     int item1Sub = 1;
     int item2Sub = 1; 
@@ -28,7 +29,7 @@ int main(){
     int item7Sub = 1;
     int sair = 1; 
             
-    //Menu inicial 01
+    //Menu inicial principal
     printf("\n--- Super Trunfo - Países ---\n");
     printf("\n");
     printf("Opção 1 - Iniciar Jogo\n");
@@ -36,86 +37,72 @@ int main(){
     printf("Digite o número da opção escolhida: \n");
     scanf("%d", &opcao);  
 
-    //Criei um laço pra deixar tudo em loop, assim q termina o fluxo, repete tudo dnv
+    //Laço para manter o LOOP do submenu para comparações das cartas durante o game
     while(rodando){    
     switch (opcao)
     {
     case 1:
-        // Coleta dos dados da carta 01
-    //printf("Desafio Super Trunfo - Países CARTA 01\n");
-
-    //printf("Defina o ID da sua carta (Primeira letra e um número): ");
-    //scanf("%s", &ID_cidade);
-
-    //printf("Estado: ");
-    //fgets(estado, sizeof(estado), stdin);
-
-    //printf("Nome da cidade: ");
-    //fgets(nome_cidade, sizeof(nome_cidade), stdin);
-
-    //printf("População total da cidade (SEM PONTUAÇÃO): ");
-    //scanf("%i", &populacao);
-
-    //printf("Qual a área total da cidade: ");
-    //scanf("%f", &area);
-
-    //printf("Qual o PIB da cidade: ");
-    //scanf("%f", &pib);
-
-    //printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
-    //scanf("%d", &turistico);
-
-    // Coleta dos dados da carta 02
-    //printf("Desafio Super Trunfo - Países CARTA 02\n");
-
-    //printf("Defina o ID da sua carta (Primeira letra e um número): ");
-    //scanf("%s", &ID_cidade);
-
-    //printf("Estado: ");
-    //fgets(estado2, sizeof(estado2), stdin);
-    
-    //printf("Nome da cidade: ");
-    //fgets(nome_cidade2, sizeof(nome_cidade2), stdin);
-
-    //printf("População total da cidade (SEM PONTUAÇÃO): ");
-    //scanf("%i", &populacao2);
-
-    //printf("Qual o PIB da cidade: ");
-    //scanf("%f", &pib2);
-
-    //printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
-    //scanf("%d", &turistico2);
-
-    //printf("Qual a área total da cidade: ");
-    //scanf("%f", &area2);
+        /*Coleta dos dados da carta 01
+        printf("Desafio Super Trunfo - Países CARTA 01\n");
+        
+        printf("Defina o ID da sua carta (Primeira letra e um número): ");
+        scanf("%s", &ID_cidade);
+        printf("Estado: ");
+        fgets(estado, sizeof(estado), stdin);
+        printf("Nome da cidade: ");
+        fgets(nome_cidade, sizeof(nome_cidade), stdin);
+        printf("População total da cidade (SEM PONTUAÇÃO): ");
+        scanf("%i", &populacao);
+        printf("Qual a área total da cidade: ");
+        scanf("%f", &area);
+        printf("Qual o PIB da cidade: ");
+        scanf("%f", &pib);
+        printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
+        scanf("%d", &turistico);
+        
+        //Coleta dos dados da carta 02
+        printf("Desafio Super Trunfo - Países CARTA 02\n");
+        printf("Defina o ID da sua carta (Primeira letra e um número): ");
+        scanf("%s", &ID_cidade);
+        printf("Estado: ");
+        fgets(estado2, sizeof(estado2), stdin);
+        printf("Nome da cidade: ");
+        fgets(nome_cidade2, sizeof(nome_cidade2), stdin);
+        printf("População total da cidade (SEM PONTUAÇÃO): ");
+        scanf("%i", &populacao2);
+        printf("Qual o PIB da cidade: ");
+        scanf("%f", &pib2);
+        printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
+        scanf("%d", &turistico2);
+        printf("Qual a área total da cidade: ");
+        scanf("%f", &area2);*/
         break;
      case 2:
-            printf("#### REGRAS DO JOGO SUPER TRUFO ####");
-            printf("\n");
-            printf("O Super Trunfo é um jogo de cartas colecionáveis em que os jogadores tentam tirar todas as cartas dos adversários através de comparações de características. O jogador que primeiro conseguir todas as cartas vence o jogo.\n"); 
-            printf("\n");
-            printf("Regras:\n");
-            printf("\n");
-            printf("1-Distribuição: O baralho é dividido igualmente entre os jogadores, formando montes individuais. \n");
-            printf("2-Início: O jogador à esquerda do distribuidor começa o jogo. \n");
-            printf("3-Escolha da Característica: O primeiro jogador escolhe uma característica da sua carta de cima (ex: velocidade, altura) e lê em voz alta.\n");
-            printf("4-Comparações: Os outros jogadores também escolhem a mesma característica na sua carta de cima e lêem o valor. \n");
-            printf("5-Vencedor da Rodada: O jogador com o maior valor naquela característica ganha a rodada e recebe todas as cartas da mesa. \n");
-            printf("6-Embaralhamento: As cartas ganhas na rodada são colocadas no fundo do próprio monte do vencedor. \n");
-            printf("7-Carta Super Trunfo: Se houver uma carta Super Trunfo, ela vence a todas as cartas com as letras B, C e D (exceto a carta A). \n");
-            printf("8-Empate: Em caso de empate, os jogadores que empataram escolhem outra característica e comparam novamente. \n");
-            printf("9-Fim do Jogo: O jogo termina quando um jogador consegue todas as cartas dos outros. \n");
-            printf("10-Vencedor: O jogador que fica com todas as cartas vence o jogo.\n");
-            printf("\n");
+        printf("#### REGRAS DO JOGO SUPER TRUFO ####");
+        printf("\n");
+        printf("O Super Trunfo é um jogo de cartas colecionáveis em que os jogadores tentam tirar todas as cartas dos adversários através de comparações de características. O jogador que primeiro conseguir todas as cartas vence o jogo.\n"); 
+        printf("\n");
+        printf("Regras:\n");
+        printf("\n");
+        printf("1-Distribuição: O baralho é dividido igualmente entre os jogadores, formando montes individuais. \n");
+        printf("2-Início: O jogador à esquerda do distribuidor começa o jogo. \n");
+        printf("3-Escolha da Característica: O primeiro jogador escolhe uma característica da sua carta de cima (ex: velocidade, altura) e lê em voz alta.\n");
+        printf("4-Comparações: Os outros jogadores também escolhem a mesma característica na sua carta de cima e lêem o valor. \n");
+        printf("5-Vencedor da Rodada: O jogador com o maior valor naquela característica ganha a rodada e recebe todas as cartas da mesa. \n");
+        printf("6-Embaralhamento: As cartas ganhas na rodada são colocadas no fundo do próprio monte do vencedor. \n");
+        printf("7-Carta Super Trunfo: Se houver uma carta Super Trunfo, ela vence a todas as cartas com as letras B, C e D (exceto a carta A). \n");
+        printf("8-Empate: Em caso de empate, os jogadores que empataram escolhem outra característica e comparam novamente. \n");
+        printf("9-Fim do Jogo: O jogo termina quando um jogador consegue todas as cartas dos outros. \n");
+        printf("10-Vencedor: O jogador que fica com todas as cartas vence o jogo.\n");
+        printf("\n");
         break;
     }
-    //Caclulo do PIB e Densidade pop das cartas 01 e 02
+
+    //Caclulo do PIB e Densidade pop d, e poders cartas 01 e 02
     densidade = populacao / area;
     PIB = pib / populacao;
     densidade2 = populacao2 / area2;
     PIB2 = pib2 / populacao2;
-
-    //calculo do poder da carta
     poder = (float)populacao + area + pib + (float)turistico + PIB - densidade; //Carta 01
     poder2 = (float)populacao2 + area2 + pib2 + (float)turistico2 + PIB2 - densidade2; // Carta 02
 

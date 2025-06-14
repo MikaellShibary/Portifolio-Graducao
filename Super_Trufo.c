@@ -42,7 +42,7 @@ int main(){
     switch (opcao)
     {
     case 1:
-        /*Coleta dos dados da carta 01
+        //Coleta dos dados da carta 01
         printf("Desafio Super Trunfo - Países CARTA 01\n");
         
         printf("Defina o ID da sua carta (Primeira letra e um número): ");
@@ -60,6 +60,20 @@ int main(){
         printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
         scanf("%d", &turistico);
         
+        printf("Desafio Super Trunfo - Países CARTA 01\n");
+        printf("ID: %S", ID_cidade;
+        printf("Estado: "s"
+        fgets(estado, sizeof(estado), stdin);
+        printf("Nome da cidade: ");
+        fgets(nome_cidade, sizeof(nome_cidade), stdin);
+        printf("População total da cidade (SEM PONTUAÇÃO): ");
+        scanf("%i", &populacao);
+        printf("Qual a área total da cidade: ");
+        scanf("%f", &area);
+        printf("Qual o PIB da cidade: ");
+        scanf("%f", &pib);
+        printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
+        scanf("%d", &turistico);
         //Coleta dos dados da carta 02
         printf("Desafio Super Trunfo - Países CARTA 02\n");
         printf("Defina o ID da sua carta (Primeira letra e um número): ");
@@ -75,7 +89,7 @@ int main(){
         printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
         scanf("%d", &turistico2);
         printf("Qual a área total da cidade: ");
-        scanf("%f", &area2);*/
+        scanf("%f", &area2);
         break;
      case 2:
         printf("#### REGRAS DO JOGO SUPER TRUFO ####");
@@ -98,7 +112,7 @@ int main(){
         break;
     }
 
-    //Caclulo do PIB e Densidade pop d, e poders cartas 01 e 02
+    //Caclulo do PIB e Densidade pop pulacional e poder das cartas 1 e 2
     densidade = populacao / area;
     PIB = pib / populacao;
     densidade2 = populacao2 / area2;
@@ -106,7 +120,7 @@ int main(){
     poder = (float)populacao + area + pib + (float)turistico + PIB - densidade; //Carta 01
     poder2 = (float)populacao2 + area2 + pib2 + (float)turistico2 + PIB2 - densidade2; // Carta 02
 
-    //Menu inicial 02
+    //Sub menu para comparações das cartas
     printf("\n---_ Super Trunfo - Países _---\n");
     printf("\n--- Comparações dos atributos ---\n");
     printf("\n");
@@ -137,7 +151,6 @@ int main(){
     if(sair){
        printf("Opção 0 - Sair.\n");
     }
-
 
     printf("Digite o número da opção do atributo da CARTA 01: \n");
     scanf("%d", &atb1);

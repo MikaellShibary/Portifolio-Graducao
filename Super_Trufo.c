@@ -2,18 +2,18 @@
 
 int main(){
     //Declaração dos valores das cartas 01 e 02
-    //int turistico, populacao, turistico2, populacao2;
-    //char estado[40], estado2[40];
-    //char nome_cidade[30], nome_cidade2[30];
-    //char ID_cidade[30], ID_cidade2[30];
-    //float pib, area, densidade, PIB, pib2, area2, densidade2, PIB2, poder, poder2;
+    int turistico, populacao, turistico2, populacao2, opcao;
+    char estado[40], estado2[40];
+    char nome_cidade[30], nome_cidade2[30];
+    char ID_cidade[30], ID_cidade2[30];
+    float pib, area, densidade, PIB, pib2, area2, densidade2, PIB2, poder, poder2;
     
-    // valores declarados para facilitar o codigo
+    /* valores declarados para facilitar o codigo
     int turistico = 50, populacao = 12325000, turistico2 = 30, populacao2 = 67488000, opcao;
     char estado[40] = "São Paulo", estado2[40] = "Rio de Janeiro";
     char nome_cidade[30] = "São Paulo", nome_cidade2[30] = "Rio de Janeiros";
     char ID_cidade[30] = "SP01", ID_cidade2[30] = "RJ02";
-    float pib = 699280000000, area = 1521.11, densidade, PIB, pib2 = 3005000000000, area2 = 1200.25, densidade2, PIB2, poder, poder2;
+    float pib = 699280000000, area = 1521.11, densidade, PIB, pib2 = 3005000000000, area2 = 1200.25, densidade2, PIB2, poder, poder2;*/
     int atb1, atb2;
 
     //flag pra indicar se é pra continuar rodando mostrando o menu ou n
@@ -45,11 +45,13 @@ int main(){
         //Coleta dos dados da carta 01
         printf("Desafio Super Trunfo - Países CARTA 01\n");
         
+        printf("Estado: ");
+        getchar(); // limpa o '\n' do buffer
+        fgets(estado, sizeof(estado), stdin);
         printf("Defina o ID da sua carta (Primeira letra e um número): ");
         scanf("%s", &ID_cidade);
-        printf("Estado: ");
-        fgets(estado, sizeof(estado), stdin);
         printf("Nome da cidade: ");
+        getchar(); // limpa o '\n' do buffer
         fgets(nome_cidade, sizeof(nome_cidade), stdin);
         printf("População total da cidade (SEM PONTUAÇÃO): ");
         scanf("%i", &populacao);
@@ -60,27 +62,25 @@ int main(){
         printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
         scanf("%d", &turistico);
         
+        //dados da carta 01
         printf("Desafio Super Trunfo - Países CARTA 01\n");
-        printf("ID: %S", ID_cidade;
-        printf("Estado: "s"
-        fgets(estado, sizeof(estado), stdin);
-        printf("Nome da cidade: ");
-        fgets(nome_cidade, sizeof(nome_cidade), stdin);
-        printf("População total da cidade (SEM PONTUAÇÃO): ");
-        scanf("%i", &populacao);
-        printf("Qual a área total da cidade: ");
-        scanf("%f", &area);
-        printf("Qual o PIB da cidade: ");
-        scanf("%f", &pib);
-        printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): ");
-        scanf("%d", &turistico);
+        printf("ID: %s\n", ID_cidade);
+        printf("Estado: %s\n", estado);
+        printf("Nome da cidade: %s \n", nome_cidade);
+        printf("População total da cidade (SEM PONTUAÇÃO): %.d\n", populacao);
+        printf("Qual a área total da cidade: %.2f\n", area);
+        printf("Qual o PIB da cidade: %2.f\n", pib);
+        printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): %d\n", turistico);
+
         //Coleta dos dados da carta 02
-        printf("Desafio Super Trunfo - Países CARTA 02\n");
+        printf("\nDesafio Super Trunfo - Países CARTA 02\n");
         printf("Defina o ID da sua carta (Primeira letra e um número): ");
-        scanf("%s", &ID_cidade);
+        scanf("%s", &ID_cidade2);
         printf("Estado: ");
+        getchar(); // limpa o '\n' do buffer
         fgets(estado2, sizeof(estado2), stdin);
         printf("Nome da cidade: ");
+        getchar(); // limpa o '\n' do buffer
         fgets(nome_cidade2, sizeof(nome_cidade2), stdin);
         printf("População total da cidade (SEM PONTUAÇÃO): ");
         scanf("%i", &populacao2);
@@ -90,8 +90,18 @@ int main(){
         scanf("%d", &turistico2);
         printf("Qual a área total da cidade: ");
         scanf("%f", &area2);
+
+        //Dados da carta 02
+        printf("Desafio Super Trunfo - Países CARTA 02\n");
+        printf("ID: %S\n", ID_cidade2);
+        printf("Estado: %s\n", estado2);
+        printf("Nome da cidade: %s\n ", nome_cidade2);
+        printf("População total da cidade (SEM PONTUAÇÃO): %d\n", populacao2);
+        printf("Qual a área total da cidade: %.2f\n", area2);
+        printf("Qual o PIB da cidade: %2.f\n", pib2);
+        printf("Quantos pontos turísticos a cidade possui(SEM PONTUAÇÃO): %d\n", turistico2);
         break;
-     case 2:
+        case 2:
         printf("#### REGRAS DO JOGO SUPER TRUFO ####");
         printf("\n");
         printf("O Super Trunfo é um jogo de cartas colecionáveis em que os jogadores tentam tirar todas as cartas dos adversários através de comparações de características. O jogador que primeiro conseguir todas as cartas vence o jogo.\n"); 
@@ -221,7 +231,7 @@ int main(){
         printf("PIB per capita das cidades das Carta 01 x Carta 02\n");
         if (PIB>PIB2){
             printf("PIB per capita da Carta 01 VENCEU !!!\n");
-        } else if (PIB2>PIB2){
+        } else if (PIB2>PIB){
             printf("PIB per capita da Carta 02 VENCEU !!!\n");
         } else {
             printf("PIB per capita das Cartas 01 e Carta 02 são iguais\n");

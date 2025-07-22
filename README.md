@@ -1,4 +1,4 @@
-# Crianções
+# Criações
 
 Bem-vindo(a) ao meu portfólio!
 Aqui você encontrará uma coleção de projetos desenvolvidos ao longo da minha trajetória acadêmica, incluindo sites e jogos básicos criados como parte das atividades e avaliações da faculdade.

@@ -43,21 +43,59 @@ por fim o rodapé <tfoot></tfoot>"-->
     <td>Coluna 1
         <tr>Quantidade</tr>
         <tr>Preço</tr>
-        <tr>Pago</tr></td>
+        <tr>Pago</tr>
+    </td>
     <td>Coluna 2
         <tr>10</tr>
         <tr>R$ 100,00</tr>
-        <tr>Sim</tr></td>
+        <tr>Sim</tr>
+    </td>
     <td>Coluna 3
         <tr>20</tr>
         <tr>R$ 200,00</tr>
-        <tr>Não</tr></td>
+        <tr>Não</tr>
+    </td>
     <td>Coluna 4
         <tr>30</tr>
         <tr>R$ 300,00</tr>
-        <tr>Sim</tr></td>
+        <tr>Sim</tr>
+    </td>
     <tfoot>
         <tr>Controle dos valores</tr>
+    </tfoot>
+</table>
+<h2>Tabela com título</h2>
+<table width="100%" border="1">
+    <tr>
+        <!--Rownspan mescla linhas-->
+        <td>Aluno</td>
+        <td>Matéria</td>
+        <td rowspan="2">Nota</td>
+    </tr>
+    <tbody>
+    <tr>
+        <td>Smith</td>
+        <td>HTML09</td>
+        <td>09</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>Sunday</td>
+        <td>JavaScript</td>
+        <td>10</td>
+        <td>9</td>
+    </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <!--Colspan mesclar colunas-->
+            <th rowspan="2">Total</th>
+            <th>100%</th>
+        </tr>
+        <tr>
+            <th colspan="2">total</th>
+            <th>10</th>
+        </tr>
     </tfoot>
 </table>
 </body>

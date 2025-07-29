@@ -66,34 +66,37 @@ por fim o rodapé <tfoot></tfoot>"
 </table> -->
 <h2>Tabela com título</h2>
 <table width="100%" border="1">
-    <tr>
+    <thead>
         <!--Colspan mescla colunas-->
         <!--Rowspan mescla linhas-->
-        <td>Aluno</td>
-        <td rowspan="2">Matéria</td>
-        <td rowspan="2">Nota</td>
-    </tr>
+        <th>Aluno</th>
+        <th rowspan="2">Matéria</th>
+        <th rowspan="2">Nota</th>
+    </thead>
     <tbody>
     <tr>
         <td colspan="2">Smith</td>
         <td>HTML</td>
+        <td>5</td>
+    </tr>
+    <tr>
         <td>JavaScript</td>
         <td>09</td>
-        <td>5</td>
     </tr>
     <tr>
         <td colspan="2">Sunday</td>
         <td>HTML</td>
-        <td>JavaScript</td>
-        <td>10</td>
         <td>9</td>
+    </tr>
+    <tr>
+         <td>JavaScript</td>
+         <td>10</td>
     </tr>
     </tbody>
     <tfoot>
         <tr>
-            <th rowspan="2">total</th>
+            <th>total</th>
             <th rowspan="2">100%</th>
         </tr>
     </tfoot>
-</table>
 </body>

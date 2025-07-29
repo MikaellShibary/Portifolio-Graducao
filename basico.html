@@ -40,28 +40,28 @@ Por fim, insira uma linha de separação horizontal no documento, procedida de u
 Coluna da Tabela <td></td>, Cabeçalho da coluna <th></th>, Cabeçalho da Tabela <thead></thead> e 
 por fim o rodapé <tfoot></tfoot>"-->
 <table>
-    <td>Coluna 1
-        <tr>Quantidade</tr>
-        <tr>Preço</tr>
-        <tr>Pago</tr>
-    </td>
-    <td>Coluna 2
-        <tr>10</tr>
-        <tr>R$ 100,00</tr>
-        <tr>Sim</tr>
-    </td>
-    <td>Coluna 3
-        <tr>20</tr>
-        <tr>R$ 200,00</tr>
-        <tr>Não</tr>
-    </td>
-    <td>Coluna 4
-        <tr>30</tr>
-        <tr>R$ 300,00</tr>
-        <tr>Sim</tr>
-    </td>
+    <tr>Coluna 1
+        <td>Quantidade</td>
+        <td>Preço</td>
+        <td>Pago</td>
+    </tr>
+    <tr>Coluna 2
+        <td>10</td>
+        <td>R$ 100,00</td>
+        <td>Sim</td>
+    </tr>
+    <tr>Coluna 3
+        <td>20</td>
+        <td>R$ 200,00</td>
+        <td>Não</td>
+    </tr>
+    <tr>Coluna 4
+        <td>30</td>
+        <td>R$ 300,00</td>
+        <td>Sim</td>
+    </tr>
     <tfoot>
-        <tr>Controle dos valores</tr>
+        <td>Controle dos valores</td>
     </tfoot>
 </table>
 <h2>Tabela com título</h2>
@@ -89,10 +89,12 @@ por fim o rodapé <tfoot></tfoot>"-->
     <tfoot>
         <tr>
             <!--Colspan mesclar colunas-->
-            <th rowspan="2">Total</th>
+            <th> </th>
+            <th>Total</th>
             <th>100%</th>
         </tr>
         <tr>
+            <th></th>
             <th colspan="2">total</th>
             <th>10</th>
         </tr>

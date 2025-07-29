@@ -67,20 +67,23 @@ por fim o rodapé <tfoot></tfoot>"
 <h2>Tabela com título</h2>
 <table width="100%" border="1">
     <tr>
-        <!--Rownspan mescla linhas-->
+        <!--Colspan mescla colunas-->
+        <!--Rowspan mescla linhas-->
         <td>Aluno</td>
-        <td>Matéria</td>
+        <td rowspan="2">Matéria</td>
         <td rowspan="2">Nota</td>
     </tr>
     <tbody>
     <tr>
-        <td>Smith</td>
-        <td>HTML09</td>
+        <td colspan="2">Smith</td>
+        <td>HTML</td>
+        <td>JavaScript</td>
         <td>09</td>
         <td>5</td>
     </tr>
     <tr>
-        <td>Sunday</td>
+        <td colspan="2">Sunday</td>
+        <td>HTML</td>
         <td>JavaScript</td>
         <td>10</td>
         <td>9</td>
@@ -88,15 +91,8 @@ por fim o rodapé <tfoot></tfoot>"
     </tbody>
     <tfoot>
         <tr>
-            <!--Colspan mesclar colunas-->
-            <th>1</th>
-            <th>2</th>
-            <th>Total</th>
-            <th>100%</th>
-        </tr>
-        <tr>
-            <th rowspan="3">total</th>
-            <th>10</th>
+            <th rowspan="2">total</th>
+            <th rowspan="2">100%</th>
         </tr>
     </tfoot>
 </table>

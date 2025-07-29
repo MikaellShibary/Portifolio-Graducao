@@ -40,13 +40,13 @@ Por fim, insira uma linha de separação horizontal no documento, procedida de u
 Coluna da Tabela <td></td>, Cabeçalho da coluna <th></th>, Cabeçalho da Tabela <thead></thead> e 
 por fim o rodapé <tfoot></tfoot>"-->
 <h2>Tabela com título</h2>
-<table width="100%" border="0">
+<table width="100%" border="3">
     <thead>
         <!--Colspan mescla colunas-->
         <!--Rowspan mescla linhas-->
         <th>Aluno</th>
         <th>Matéria</th>
-        <th>Nota</th>
+        <th rowspan="2">Nota</th>
     </thead>
     <tbody>
     <tr>
@@ -72,9 +72,8 @@ por fim o rodapé <tfoot></tfoot>"-->
     </tbody>
     <tfoot>
         <tr>
-            <td>Aluno</td>
             <td>total</td>
-            <td>100%</td>
+            <td rowspan="2">100%</td>
         </tr>
     </tfoot>
 </table>

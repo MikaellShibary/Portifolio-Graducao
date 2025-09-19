@@ -153,7 +153,7 @@ if login_ok:
 
             # Aguarda o botão de pesquisa ficar visível e clicável
             try:
-                botao_pesquisar = WebDriverWait(driver, 15).until(
+                botao_pesquisar = WebDriverWait(driver, 30).until(
                     EC.element_to_be_clickable((By.ID, "button-filtro-pesquisar"))
                 )
                 botao_pesquisar.click()
@@ -183,15 +183,26 @@ if login_ok:
 
             # Tenta o duplo clique
             try:
+                time.sleep(5)
                 ActionChains(driver).double_click(element).perform()
                 print("Duplo clique realizado, esperando formulário")
             except Exception as e:
                 print(f"⚠️ Duplo clique falhou: {e} - tentando click simples via JS")
                 driver.execute_script("arguments[0].click();", element)
                 continue
+                     
             
             WebDriverWait(driver, 50).until(EC.presence_of_element_located((By.ID, "formulario_manutencaoPage")))  # ou outro ID principal
 
+            #Checar a ATIVIDADE do chamado, se difente de MANUTENÇÃO ou VISTORIA, retornar e presquisar próximo chamado
+            if "MANUTENÇÃO" in texto_atividade:
+                print("Atividade: MANUTENÇÃO")
+            elif "VISTORIA" in texto_atividade:
+                print("Atividade: VISTORIA")
+            else:
+                print("Atividade diferente:", texto_atividade)
+
+            #Aguardando formulário
             print("Formulário de manutenção aberto")
             time.sleep(10)
 
@@ -263,3 +274,4 @@ else:
 # ================================
 
 driver.quit()
+

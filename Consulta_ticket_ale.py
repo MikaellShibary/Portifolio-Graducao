@@ -3,35 +3,31 @@ import pandas as pd
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 # ================================
 # CONFIGURAÇÕES
 # ================================
 
-usuario_sac = "mikaell.mesquita"
-senha_sac = "Mesquita1001"
+usuario_sac = "mikaell.mesquita@seduc.go.gov.br"
+senha_sac = ""
 caminho_planilha = r"C:\Users\mikaell.mesquita\Documents\PLANILHA CONTROLE DAS MANUTENÇÕES (3).xlsx"
 
 # ================================
-# FUNÇÃO DE LOGIN
+# FUNÇÃO CLEAR
 # ================================
-
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def realizar_login(driver, usuario, senha, url_login, max_tentativas=3):
-    from selenium.webdriver.common.by import By
-    from selenium.webdriver.common.keys import Keys
-    from selenium.webdriver.support.ui import WebDriverWait
-    from selenium.webdriver.support import expected_conditions as EC
-    from selenium.common.exceptions import TimeoutException
-    import time
+# ================================
+# FUNÇÃO LOGIN
+# ================================
 
+def realizar_login(driver, usuario, senha, url_login, max_tentativas=3):
     tentativa = 0
     login_sucesso = False
 
@@ -40,37 +36,58 @@ def realizar_login(driver, usuario, senha, url_login, max_tentativas=3):
         print(f"Tentativa de login #{tentativa}")
 
         driver.get(url_login)
+        wait = WebDriverWait(driver, 30)
 
         try:
-            # Aguarda os campos aparecerem
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "user_login")))
+            botao_seduc = wait.until(EC.element_to_be_clickable(
+                (By.XPATH, "//span[contains(text(),'Se você é da SEDUC - Clique')]")
+            ))
+            botao_seduc.click()
+            print("✅ Botão 'Se você é da SEDUC - Clique Aqui' clicado")
 
-            # Preenche os campos
-            driver.find_element(By.ID, "user_login").clear()
-            driver.find_element(By.ID, "user_login").send_keys(usuario)
+            campo_email = wait.until(EC.presence_of_element_located((By.ID, "i0116")))
+            campo_email.clear()
+            campo_email.send_keys(usuario)
+            print("✉️ Email preenchido")
 
-            driver.find_element(By.ID, "password").clear()
-            driver.find_element(By.ID, "password").send_keys(senha + Keys.RETURN)
+            botao_avancar = wait.until(EC.element_to_be_clickable((By.ID, "idSIButton9")))
+            botao_avancar.click()
+            time.sleep(2)
 
-            # Aguarda possível redirecionamento
+            campo_senha = wait.until(EC.presence_of_element_located((By.ID, "i0118")))
+            campo_senha.clear()
+            campo_senha.send_keys(senha)
+            print("🔑 Senha preenchida")
+
+            botao_entrar = wait.until(EC.element_to_be_clickable((By.ID, "idSIButton9")))
+            botao_entrar.click()
+            print("✅ Botão Entrar clicado")
+
+            # MFA (se existir)
+            try:
+                botao_outra_maneira = wait.until(
+                    EC.element_to_be_clickable((By.ID, "signInAnotherWay"))
+                )
+                botao_outra_maneira.click()
+                botao_sms = wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Texto +')]"))
+                )
+                botao_sms.click()
+                input("⏳ Digite o código do SMS no navegador e pressione ENTER aqui...")
+            except:
+                print("⚠️ MFA não apareceu ou já autenticado.")
+
             time.sleep(5)
-
-            # Verifica se a URL mudou
-            if driver.current_url != url_login:
-                login_sucesso = True
-                print("✅ Login realizado com sucesso!")
-            else:
-                print("❌ Login falhou, tentando novamente...")
-                time.sleep(3)
-
+            login_sucesso = True
+            print("🎉 Login realizado com sucesso!")
         except Exception as e:
             print(f"⚠️ Erro na tentativa #{tentativa}: {e}")
             time.sleep(3)
 
     if not login_sucesso:
-        print("🚫 Não foi possível realizar o login após várias tentativas.")
+        raise Exception("🚫 Não foi possível realizar o login após várias tentativas.")
 
-    return login_sucesso
+    return True
 
 # ================================
 # INICIALIZA WEBDRIVER
@@ -83,195 +100,128 @@ wait = WebDriverWait(driver, 10)
 # LOGIN
 # ================================
 
-url_login = "https://seducgo.cloud4biz.com/4biz/webmvc/login"
-login_ok = realizar_login(driver, usuario_sac, senha_sac, url_login)
+url_login = "https://keycloak.4biz.one/auth/realms/seduc-03/protocol/openid-connect/auth?client_id=front-manager&redirect_uri=https%3A%2F%2Fseduc.4biz.one%2Fworkflow%2Fpages%2FserviceRequestIncident%2FserviceRequestIncident.load%3Fiframe%3Dtrue&state=aa36d904-001f-44c1-86ab-7e0528fc7cf5&response_mode=fragment&response_type=code&scope=openid&nonce=9e0f0d92-5337-4988-8b33-1200ebb6a182&code_challenge=m_ReNZMLGBPkSIXpMeYUlFZg8cFKLWSwtt8sEF8fAGM&code_challenge_method=S256"
+realizar_login(driver, usuario_sac, senha_sac, url_login)
 
 # ================================
-# EXECUÇÃO PRINCIPAL
+# CARREGA PLANILHA
 # ================================
 
-if login_ok:
+df = pd.read_excel(caminho_planilha)
 
-    # Acessa a planilha e salva no dataframe df
-    df = pd.read_excel(caminho_planilha)
+colunas = {
+    "Solicitante": "solicitante",
+    "Municipio": "municipio",
+    "Código Escola": "codigo_escola",
+    "Escola": "escola",
+    "Marca": "marca",
+    "Numero de Série": "numero_serie",
+    "Defeito": "defeito"
+}
 
-    # Colunas que serão preenchidas
-    colunas = {
-        "Solicitante": "solicitante",
-        "Municipio": "municipio",
-        "Código Escola": "codigo_escola",
-        "Escola": "escola",
-        "Marca": "marca",
-        "Numero de Série": "numero_serie",
-        "Defeito": "defeito"
-    }
+for col in colunas:
+    if col not in df.columns:
+        df[col] = ""
 
-    # Adiciona colunas se não existirem
-    for col in colunas:
-        if col not in df.columns:
-            df[col] = ""
+campos = {
+    "solicitante": "formulario_manutencao\\.CRE",
+    "municipio": "formulario_manutencao\\.municipio",
+    "codigo_escola": "formulario_manutencao\\.inep",
+    "escola": "formulario_manutencao\\.escola",
+    "marca": "formulario_manutencao\\.marca",
+    "numero_serie": "formulario_manutencao\\.serial",
+    "defeito": "formulario_manutencao\\.defeito"
+}
 
-    # Define os campos para extrair
-    campos = {
-        "solicitante": "formulario_manutencao\\.CRE",
-        "municipio": "formulario_manutencao\\.municipio",
-        "codigo_escola": "formulario_manutencao\\.inep",
-        "escola": "formulario_manutencao\\.escola",
-        "marca": "formulario_manutencao\\.marca",
-        "numero_serie": "formulario_manutencao\\.serial",
-        "defeito": "formulario_manutencao\\.defeito"
-    }
+clear()
+driver.get("https://seduc.4biz.one/workflow/pages/serviceRequestIncident/serviceRequestIncident.load?iframe=true")
+time.sleep(5)
 
-    clear()
-    driver.get("https://seducgo.cloud4biz.com/4biz/pages/serviceRequestIncident/serviceRequestIncident.load#/")
+# ================================
+# LOOP DE PROCESSAMENTO DE TICKETS
+# ================================
 
-    for i, row in df.iterrows():
-        ticket_num = str(row["Ticket"])
-        print(f"🔍 Processando ticket: {ticket_num}")
+for i, row in df.iterrows():
+    ticket_num = str(row["Ticket"])
+    print(f"🔍 Processando ticket: {ticket_num}")
+    try:
+        driver.switch_to.default_content()
+        iframe = wait.until(EC.presence_of_element_located((By.TAG_NAME, "iframe")))
+        driver.switch_to.frame(iframe)
+
+        campo_busca = wait.until(EC.element_to_be_clickable((By.ID, "pesquisaSolicitacao")))
+        campo_busca.clear()
+        campo_busca.send_keys(ticket_num)
+        campo_busca.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        #try:
+            #driver.find_element(By.ID, "open-advanced-search").click()
+            #time.sleep(1)
+        #except:
+            #pass
+
+        #botao_pesquisar = wait.until(EC.element_to_be_clickable((By.ID, "button-filtro-pesquisar")))
+        #driver.execute_script("arguments[0].click();", botao_pesquisar)
+        campo_busca.send_keys(Keys.ENTER)
+        time.sleep(2)
+
+        # Espera adaptativa para o ticket aparecer
+        ticket_found = False
+        for _ in range(30):  # até 30 segundos
+            try:
+                element = driver.find_element(By.ID, f"list-item-{ticket_num}")
+                ticket_found = True
+                break
+            except:
+                time.sleep(1)
+        if not ticket_found:
+            print(f"⚠️ Ticket {ticket_num} não encontrado. Pulando...")
+            continue
+
+        driver.execute_script("arguments[0].scrollIntoView(true);", element)
         try:
-              
-            wait = WebDriverWait(driver, 50)
+            ActionChains(driver).double_click(element).perform()
+        except:
+            driver.execute_script("arguments[0].click();", element)
 
-            # Espera o campo de busca aparecer
-            campo_busca = wait.until(EC.element_to_be_clickable((By.ID, "pesquisaSolicitacao")))
-            print("Campo de busca pronto")
+        wait.until(EC.presence_of_element_located((By.ID, "formulario_manutencaoPage")))
+        time.sleep(2)
 
-            # Limpa e insere o ticket
-            campo_busca.clear()
-            time.sleep(1)
-            campo_busca.send_keys(ticket_num)
-            time.sleep(1)
-
-            # Abre a busca avançada (se necessário)
+        valores = {}
+        for nome, seletor_id in campos.items():
             try:
-                botao_abrir_busca_avancada = driver.find_element(By.ID, "open-advanced-search")
-                botao_abrir_busca_avancada.click()
-                print("📂 Busca avançada aberta")
-                time.sleep(0.5)
-            except Exception as e:
-                print(f"⚠️ Falha ao abrir busca avançada (pode já estar aberta): {e}")
+                elem = driver.find_elements(By.CSS_SELECTOR, f"input#{seletor_id}, textarea#{seletor_id}")
+                valores[nome] = elem[0].get_attribute("value") if elem else None
+            except:
+                valores[nome] = None
 
-            # Aguarda o botão de pesquisa ficar visível e clicável
-            try:
-                botao_pesquisar = WebDriverWait(driver, 30).until(
-                    EC.element_to_be_clickable((By.ID, "button-filtro-pesquisar"))
-                )
-                botao_pesquisar.click()
-                driver.execute_script("arguments[0].click();", botao_pesquisar)
-                print("🔎 Botão de pesquisa clicado com sucesso")
-                time.sleep(2)
-            except Exception as e:
-                print(f"❌ ERRO: Não foi possível clicar no botão de pesquisa: {e}")
-                continue  # pula para o próximo ticket
+        for col, nome in colunas.items():
+            df.at[i, col] = valores.get(nome)
 
+        try:
+            botao_voltar = wait.until(EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, "button.request-back[title='Voltar']")))
+            botao_voltar.click()
+            botao_confirmar = wait.until(EC.element_to_be_clickable(
+                (By.XPATH, "//button[contains(text(), 'Confirmar')]")))
+            botao_confirmar.click()
+            time.sleep(2)
+        except:
+            pass
 
-            # Espera que a lista seja carregada — por exemplo, espera que o item com o ticket apareça
-            try:
-                element = WebDriverWait(driver, 50).until(
-                    EC.element_to_be_clickable((By.ID, f"list-item-{ticket_num}"))
-                )
-                print(f"✅ Ticket {ticket_num} encontrado na lista.")
-            except Exception as e:
-                print(f"❌ ERRO: Ticket {ticket_num} não encontrado na lista: {e}")
-                continue
-
-            driver.execute_script("arguments[0].scrollIntoView(true);", element)
-
-            # Limpa os filtros
-            botao_limpar = driver.find_element(By.ID, "button-filtro-limpar")
-            driver.execute_script("arguments[0].click();", botao_limpar)
-
-            # Tenta o duplo clique
-            try:
-                time.sleep(5)
-                ActionChains(driver).double_click(element).perform()
-                print("Duplo clique realizado, esperando formulário")
-            except Exception as e:
-                print(f"⚠️ Duplo clique falhou: {e} - tentando click simples via JS")
-                driver.execute_script("arguments[0].click();", element)
-                continue
-                     
-            
-            WebDriverWait(driver, 50).until(EC.presence_of_element_located((By.ID, "formulario_manutencaoPage")))  # ou outro ID principal
-
-            #Checar a ATIVIDADE do chamado, se difente de MANUTENÇÃO ou VISTORIA, retornar e presquisar próximo chamado
-            if "MANUTENÇÃO" in texto_atividade:
-                print("Atividade: MANUTENÇÃO")
-            elif "VISTORIA" in texto_atividade:
-                print("Atividade: VISTORIA")
-            else:
-                print("Atividade diferente:", texto_atividade)
-
-            #Aguardando formulário
-            print("Formulário de manutenção aberto")
-            time.sleep(10)
-
-            valores = {}
-
-            # Agora capturar os campos
-            for nome, seletor_id in campos.items():
-                try:
-                    elem = driver.find_elements(By.CSS_SELECTOR, f"input#{seletor_id}, textarea#{seletor_id}")
-                    valores[nome] = elem[0].get_attribute("value")
-                    print(f"Campo {nome}: {valores[nome]}")
-                except Exception as e_inner:
-                    print(f"⚠️ Não encontrei o campo {nome} para ticket {ticket_num}: {e_inner}")
-                    valores[nome] = None
-
-            # Guardar os dados no DataFrame ou no dicionário
-            df.at[i, "Solicitante"] = valores.get("solicitante")
-            df.at[i, "Municipio"] = valores.get("municipio")
-            df.at[i, "Código Escola"] = valores.get("codigo_escola")
-            df.at[i, "Escola"] = valores.get("escola")
-            df.at[i, "Marca"] = valores.get("marca")
-            df.at[i, "Numero de Série"] = valores.get("numero_serie")
-            df.at[i, "Defeito"] = valores.get("defeito")
-
-            print(f"✅ Ticket {ticket_num} processado")
-
-            try:
-                # Clica no botão "Voltar"
-                botao_voltar = wait.until(EC.element_to_be_clickable((
-                    By.CSS_SELECTOR,
-                    "button.request-back[title='Voltar']"
-                )))
-                botao_voltar.click()
-                print("🔙 Botão 'Voltar' clicado")
-
-                # Aguarda e clica no botão "Confirmar"
-                botao_confirmar = wait.until(EC.element_to_be_clickable((
-                    By.XPATH,
-                    "//button[contains(text(), 'Confirmar')]"
-                )))
-                botao_confirmar.click()
-                print("✅ Navegação confirmada para voltar")
-
-                # Aguarda brevemente para garantir carregamento da lista novamente
-                time.sleep(2)
-
-            except Exception as e:
-                print(f"⚠️ Erro ao tentar voltar após acessar ticket {ticket_num}: {e}")
-
-        except Exception as e:
-            import traceback
-            print(f"❌ Erro ao processar ticket {ticket_num}: {e}")
-            traceback.print_exc()
-             #volta para o topo do loop externo
-            raise  # levanta de novo para o try externo
-
-    # ================================
-    # SALVAR OS RESULTADOS
-    # ================================
-    
-    df.to_excel("planilha_atualizada.xlsx", index=False)
-    print("📁 Planilha atualizada salva como 'planilha_atualizada.xlsx'.")
-
-else:
-    print("❌ Encerrando script por falha no login.")
+    except Exception as e:
+        import traceback
+        print(f"❌ Erro ao processar ticket {ticket_num}: {e}")
+        traceback.print_exc()
+        continue
 
 # ================================
-# ENCERRAR WEBDRIVER
+# SALVA PLANILHA EM MEUS DOCUMENTOS
 # ================================
+
+caminho_documentos = os.path.join(os.path.expanduser("~"), "Documents", "planilha_atualizada.xlsx")
+df.to_excel(caminho_documentos, index=False)
+print(f"📁 Planilha atualizada salva em: {caminho_documentos}")
 
 driver.quit()
-
